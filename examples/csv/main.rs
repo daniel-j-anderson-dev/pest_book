@@ -1,5 +1,3 @@
-use pest_book::get_input;
-
 // Trait to facilitate parsing text of a known grammar
 use pest::Parser;
 
@@ -35,32 +33,12 @@ fn main() {
         }
     }
 
-    println!("")
+    assert_eq!(sum, 2643429302.327908);
+    assert_eq!(record_count, 5);
 }
 
-#[cfg(test)]
-mod test {
-    #[test]
-    fn parse_one_value() {
-        dbg!(CsvParser::parse(Rule::Field, "-273.15").unwrap());
-        dbg!(CsvParser::parse(Rule::Field, "this is not a number").unwrap_err());
-    }
-    
-    #[test]
-    fn sum_fields() {
-        let file = CsvParser::parse(Rule::File, CSV_DATA)
-            .unwrap()
-            .next()
-            .unwrap();
-        assert_eq!(CsvParser::sum_fields(file), 2643429302.327908);
-    }
-    
-    #[test]
-    fn count_records() {
-        let file = CsvParser::parse(Rule::File, CSV_DATA)
-            .unwrap()
-            .next()
-            .unwrap();
-        assert_eq!(CsvParser::count_records(file), 5);
-    }
+#[test]
+fn parse_one_value() {
+    dbg!(CsvParser::parse(Rule::Field, "-273.15").unwrap());
+    dbg!(CsvParser::parse(Rule::Field, "this is not a number").unwrap_err());
 }
