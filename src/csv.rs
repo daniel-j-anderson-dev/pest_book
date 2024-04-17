@@ -2,16 +2,18 @@
 use pest::Parser;
 
 // Procedural Macro used to implement the Parse trait based on a Parsing Expression Grammars (.peg) files
+// It also generates a enum for the Rules in the .peg file
 use pest_derive::Parser;
 
-/// This struct implements [pest::Parser] based on the grammar from /examples/csv/csv.peg.
+/// This struct implements [pest::Parser] based on the grammar from grammar/csv.peg
 #[derive(Parser)]
-#[grammar = "examples/csv/csv.peg"]
+#[grammar = "grammar/csv.peg"]
 pub struct CsvParser;
 
 /// computes the sum of these fields and counts the number of records.
-fn main() {
-    const CSV_DATA: &str = include_str!("data.csv");
+#[test]
+fn sum_fields_and_count_records() {
+    const CSV_DATA: &str = include_str!("../data/data.csv");
 
     let file = CsvParser::parse(Rule::File, CSV_DATA).expect("data.csv is formatted correctly");
 
