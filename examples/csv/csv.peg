@@ -1,0 +1,10 @@
+//! CSV is a collection of Reords on each line and a Record consits of Fields, delimited by commas
+
+/// A Field can be a sequence of ONE or more of any of the following: digit, period, hyphen (minus)
+Field = { (ASCII_DIGIT | "." | "-")+ }
+
+/// A Record is a Field followed by ZERO or more Fields
+Record = { Field ~ ("," ~ Field)* }
+
+/// A File is ZERO or more Recodrs inbetween Start Of Input and End Of Input
+File = { SOI ~ (Record ~ ("\r\n" | "\n"))* ~ EOI }
