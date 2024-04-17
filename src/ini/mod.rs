@@ -4,10 +4,10 @@ use pest::Parser;
 use pest_derive::Parser;
 
 #[derive(Parser)]
-#[grammar = "grammar/ini.peg"]
+#[grammar = "src/ini/ini.peg"]
 struct IniParser;
 
-const INI_DATA: &str = include_str!("../data/data.ini");
+const INI_DATA: &str = include_str!("data.ini");
 
 #[test]
 pub fn store_properties() {

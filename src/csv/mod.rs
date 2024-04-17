@@ -7,13 +7,13 @@ use pest_derive::Parser;
 
 /// This struct implements [pest::Parser] based on the grammar from grammar/csv.peg
 #[derive(Parser)]
-#[grammar = "grammar/csv.peg"]
+#[grammar = "src/csv/csv.peg"]
 pub struct CsvParser;
 
 /// computes the sum of these fields and counts the number of records.
 #[test]
 fn sum_fields_and_count_records() {
-    const CSV_DATA: &str = include_str!("../data/data.csv");
+    const CSV_DATA: &str = include_str!("data.csv");
 
     let file = CsvParser::parse(Rule::File, CSV_DATA).expect("data.csv is formatted correctly").next().expect("Rule::File parsed successfully");
 
