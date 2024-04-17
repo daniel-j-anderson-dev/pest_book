@@ -24,9 +24,12 @@ fn main() {
                 record_count += 1;
 
                 for field in record.into_inner() {
-                    sum += field.as_str().parse::<f64>().expect("A field consists of ASCII_DIGITs");
+                    sum += field
+                        .as_str()
+                        .parse::<f64>()
+                        .expect("A field consists of ASCII_DIGITs");
                 }
-            },
+            }
             Rule::EOI => break,
             Rule::Field => unreachable!("A file consists of records"),
             Rule::File => unreachable!("A file consists of records"),

@@ -1,4 +1,7 @@
-use std::{io::{stdin, stdout, Error as IoError, Write}, str::FromStr};
+use std::{
+    io::{stdin, stdout, Error as IoError, Write},
+    str::FromStr,
+};
 
 pub fn print(text: &str) -> Result<(), IoError> {
     let mut stdout = stdout();
