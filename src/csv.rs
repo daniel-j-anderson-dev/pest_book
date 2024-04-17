@@ -15,12 +15,12 @@ pub struct CsvParser;
 fn sum_fields_and_count_records() {
     const CSV_DATA: &str = include_str!("../data/data.csv");
 
-    let file = CsvParser::parse(Rule::File, CSV_DATA).expect("data.csv is formatted correctly");
+    let file = CsvParser::parse(Rule::File, CSV_DATA).expect("data.csv is formatted correctly").next().expect("Rule::File parsed successfully");
 
     let mut sum = 0.0;
     let mut record_count = 0;
 
-    for record in file {
+    for record in file.into_inner() {
         match record.as_rule() {
             Rule::Record => {
                 record_count += 1;
@@ -44,6 +44,6 @@ fn sum_fields_and_count_records() {
 
 #[test]
 fn parse_one_value() {
-    dbg!(CsvParser::parse(Rule::Field, "-273.15").unwrap());
-    dbg!(CsvParser::parse(Rule::Field, "this is not a number").unwrap_err());
+    CsvParser::parse(Rule::Field, "-273.15").unwrap();
+    CsvParser::parse(Rule::Field, "this is not a number").unwrap_err();
 }
