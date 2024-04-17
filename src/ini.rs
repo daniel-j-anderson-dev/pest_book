@@ -10,7 +10,7 @@ struct IniParser;
 const INI_DATA: &str = include_str!("../data/data.ini");
 
 #[test]
-pub fn main() {
+pub fn store_properties() {
     let file = IniParser::parse(Rule::File, INI_DATA)
         .expect("data.ini is valid")
         .next()
