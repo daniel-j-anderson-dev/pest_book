@@ -1,15 +1,15 @@
-//! Each line contains a key and value separated by an equals sign; or contains a section name surrounded by square brackets; or else is blank and has no meaning.
+//! Each line contains a key and value separated by an equals sign;
+//! or contains a section name surrounded by square brackets;
+//! or else is blank and has no meaning.
 //!
-//! Whenever a section name appears, the following keys and values belong to that section, until the next section name. The key-value pairs at the beginning of the file belong to an implicit "empty" section.
+//! Whenever a section name appears, the following keys and values belong to that section, until the next section name.
+//! The key-value pairs at the beginning of the file belong to an implicit "empty" section.
+
+/// This rule represents an entire .ini file. It consits ZERO or more Sections or Properties or Empty Lines delimited by a newline
+File = { SOI ~ ((Section | Property)? ~ NEWLINE)* ~ EOI }
 
 /// This rule represents a recognized Character. Valid values are one of the following: ASCII_ALPHANUMERIC, ".", "_", "/"
 Character = { ASCII_ALPHANUMERIC | "." | "_" | "/" }
-
-/// This rule represents the Name of a Section or Key. consits of ONE or more Characters
-Name = { Character+ }
-
-/// This rule represents the Value of a Key-Value pair. consits of ZERO or more Characters
-Value = { Character* }
 
 /// This rule represents a Section definition line. It consits of a Name between square brackets
 Section = { "[" ~ Name ~ "]" }
@@ -17,8 +17,11 @@ Section = { "[" ~ Name ~ "]" }
 /// This rule represents a Property as a Key-Value pair. It consits of a Name, equal sign, then Value in that order
 Property = { Name ~ "=" ~ Value }
 
-/// This rule represents a Line. It consists of either a Section, Property, or nothing, followed by a NEWLINE
-Line = { (Section | Property)? ~ NEWLINE }
+    /// This atomic rule represents the Name of a Section or Key. consits of ONE or more Characters
+    Name = @{ Character+ }
 
-/// This rule represents an entire .ini file. It consits ZERO or more Sections or Properties delimited by a newline
-File = { SOI ~ Line* ~ EOI }
+    /// This atomic rule represents the Value of a Key-Value pair. consits of ZERO or more Characters
+    Value = @{ Character* }
+
+/// This silent rule represents whitespace. The only valid value is space
+WHITESPACE = _{ " " }
